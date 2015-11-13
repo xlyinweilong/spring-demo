@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.DemoApplication;
 import com.example.entity.SysUser;
 import com.example.respositroy.SysUserRespositroy;
 
@@ -19,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -30,13 +34,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @RestController
 public class GreetingController {
 
-	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	private static final Logger log = LoggerFactory.getLogger(GreetingController.class);
 	@Autowired
 	private SysUserRespositroy sysUserRespositroy;
+	@Autowired
+	StringRedisTemplate template;
 
 	/**
 	 * 请求REST入口
@@ -65,16 +70,22 @@ public class GreetingController {
 		}
 		return "123";
 	}
-	
-	@RequestMapping("/jpa")
-    public String getByEmail(String email) {
-      SysUser user = new SysUser();
-      user.setName("大隆");
-      user.setAccount("xlyinweilong");
-      user.setPasswd("123456");
-      sysUserRespositroy.save(user);
-      return "user " + email + " is not exist.";
-    }
 
+	@RequestMapping("/jpa")
+	public String getByEmail(String email) {
+		SysUser user = new SysUser();
+		user.setName("大隆");
+		user.setAccount("xlyinweilong");
+		user.setPasswd("123456");
+		sysUserRespositroy.save(user);
+		return "user " + email + " is not exist.";
+	}
+
+	@RequestMapping("/login")
+	public String login(String name) {
+//		template.setStringSerializer(new SysUser());
+		template.convertAndSend("chat", "Hello from Redis!");
+		return "1";
+	}
 
 }

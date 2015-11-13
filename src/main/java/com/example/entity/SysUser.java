@@ -1,5 +1,7 @@
 package com.example.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sys_user")
-public class SysUser {
+public class SysUser implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
