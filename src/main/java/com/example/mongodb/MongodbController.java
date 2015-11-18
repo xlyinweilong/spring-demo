@@ -15,12 +15,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
  *
  */
 @RestController
-public class GreetingController {
+public class MongodbController {
 
 	private final AtomicLong counter = new AtomicLong();
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	private static final Logger log = LoggerFactory.getLogger(GreetingController.class);
+	private static final Logger log = LoggerFactory.getLogger(MongodbController.class);
 	@Autowired
 	private SysUserRepository sysUserRepository;
 
