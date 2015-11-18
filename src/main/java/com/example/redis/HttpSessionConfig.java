@@ -1,8 +1,8 @@
 package com.example.redis;
 
-//import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
-//@EnableRedisHttpSession
+@EnableRedisHttpSession
 public class HttpSessionConfig {
 
 }

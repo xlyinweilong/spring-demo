@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.DemoApplication;
 import com.example.entity.SysUser;
+import com.example.mongodb.SysUserRepository;
 import com.example.respositroy.SysUserRespositroy;
 
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.redis.core.StringRedisTemplate;
+//import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -40,8 +41,8 @@ public class GreetingController {
 	private static final Logger log = LoggerFactory.getLogger(GreetingController.class);
 	@Autowired
 	private SysUserRespositroy sysUserRespositroy;
-	@Autowired
-	StringRedisTemplate template;
+//	@Autowired
+//	StringRedisTemplate template;
 
 	/**
 	 * 请求REST入口
@@ -80,11 +81,11 @@ public class GreetingController {
 		sysUserRespositroy.save(user);
 		return "user " + email + " is not exist.";
 	}
-
+	
 	@RequestMapping("/login")
 	public String login(String name) {
 //		template.setStringSerializer(new SysUser());
-		template.convertAndSend("chat", "Hello from Redis!");
+//		template.convertAndSend("chat", "Hello from Redis!");
 		return "1";
 	}
 
